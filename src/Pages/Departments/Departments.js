@@ -3,11 +3,13 @@ import { Table, Space, Typography, Button, Avatar } from 'antd';
 import { DashOutlined, UserOutlined, BorderlessTableOutlined, PhoneOutlined, MenuOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import PageLayout from '../../components/PageLayout';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
+import { useNavigate } from 'react-router-dom';
 
 const { Column } = Table;
 const { Title } = Typography;
 
 const Department = () => {
+    const navigate = useNavigate();
     const [APIData, setAPIData] = useState([]);
 
     const baseURL = 'https://64cef630ffcda80aff519341.mockapi.io/Departments';
@@ -30,17 +32,21 @@ const Department = () => {
         fetchData();
     }, []);
 
+    const handleAddDepartments = () => {
+        navigate("/adddepartments");
+    }
+
     return (
         <PageLayout
             headerContent={
                 <>
-                    <Title level={3} style={{ color: "#000", marginTop: 0 }}>
+                    <Title level={3} style={{ color: "#000" }}>
                         Danh Sách Phòng Ban
                     </Title>
                 </>
             }>
             <Typography align="right" style={{ marginBottom: "10px" }}>
-                <Button variant="contained" >
+                <Button variant="contained" onClick={handleAddDepartments}>
                     + Thêm Phòng Ban
                 </Button>
             </Typography>

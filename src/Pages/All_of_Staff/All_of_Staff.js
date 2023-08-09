@@ -60,7 +60,7 @@ const AllOfStaff = () => {
         <PageLayout
             headerContent={
                 <>
-                    <Title level={3} style={{ color: "#000", marginTop: 0 }}>
+                    <Title level={3} style={{ color: "#000" }}>
                         Danh Sách Nhân Viên
                     </Title>
                 </>

@@ -47,7 +47,8 @@ const PageLayout = ({ children, headerContent }) => {
                     width={250}
                     style={{
                         background: colorBgContainer,
-                        height: 610,
+                        maxheight: 500,
+                        minHeight: 300,
                     }}
                 >
                     <Dashboard />
@@ -67,10 +68,9 @@ const PageLayout = ({ children, headerContent }) => {
                     </Breadcrumb>
                     <Content
                         style={{
-                            height: 570,
+                            maxheight: 500,
                             padding: 24,
                             margin: 0,
-                            marginTop: '-1.5em',
                             minHeight: 300,
                             background: colorBgContainer,
                         }}
@@ -82,7 +82,6 @@ const PageLayout = ({ children, headerContent }) => {
             <Footer
                 style={{
                     textAlign: 'center',
-                    marginTop: '-1em'
                 }}
             >
                 Ant Design ©2023 Created by Ant UED

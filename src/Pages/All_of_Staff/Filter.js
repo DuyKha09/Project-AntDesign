@@ -1,4 +1,5 @@
 import { Button, Input, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 const { Option } = Select;
 
@@ -9,12 +10,14 @@ const Filter = ({
     setFilterDepartment,
     handleRefresh,
 }) => {
-
+    const navigate = useNavigate();
     const handleSearchChange = (event) => {
         setSearchText(event.target.value.toLowerCase());
     };
 
-
+    const handleAddStaff = () => {
+        navigate("/addstaff")
+    }
 
     return (
         <div
@@ -59,7 +62,7 @@ const Filter = ({
                     Làm mới
                 </Button>
             </div>
-            <Button variant="contained" >
+            <Button variant="contained" onClick={handleAddStaff}>
                 + Thêm Nhân Viên
             </Button>
         </div>

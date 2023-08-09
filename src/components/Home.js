@@ -10,7 +10,7 @@ const Home = () => {
                 headerContent={
                     <>
                         <Title level={3} style={{ color: "#000", marginTop: 0 }}>
-                            Dashboard
+                            Home
                         </Title>
                     </>
                 }
