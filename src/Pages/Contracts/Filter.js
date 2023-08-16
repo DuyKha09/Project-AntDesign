@@ -16,7 +16,7 @@ const Filter = ({
     };
 
     const handleAddStaff = () => {
-        navigate("/stepStaff")
+        navigate("/addstaff")
     }
 
     return (
@@ -46,7 +46,7 @@ const Filter = ({
                 value={searchText}
                 bordered={false}
             />
-            <div>
+            {/* <div>
                 <Select
                     defaultValue=""
                     onChange={(value) => setFilterDepartment(value)}
@@ -69,7 +69,7 @@ const Filter = ({
             </div>
             <Button variant="contained" onClick={handleAddStaff} style={{ backgroundColor: 'blue', color: 'white', marginRight: '20px' }}>
                 + Thêm Nhân Viên
-            </Button>
+            </Button> */}
         </div>
     );
 };

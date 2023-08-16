@@ -45,12 +45,30 @@ const Department = () => {
                     </Title>
                 </>
             }>
-            <Typography align="right" style={{ marginBottom: "10px" }}>
-                <Button variant="contained" onClick={handleAddDepartments}>
+            <Typography align="right"
+                style={{
+                    width: 1138,
+                    height: 60,
+                    marginBottom: 16,
+                    borderBottom: "2px solid #ccc",
+                    backgroundColor: 'white',
+                }}>
+                <Button variant="contained" onClick={handleAddDepartments}
+                    style={{
+                        backgroundColor: 'blue',
+                        color: 'white',
+                        marginTop: '15px',
+                        marginRight: '20px',
+                    }}>
                     + Thêm Phòng Ban
                 </Button>
             </Typography>
-            <Table dataSource={APIData} scroll={{ x: 'max-content' }}>
+            <Table dataSource={APIData} scroll={{ x: 'max-content' }}
+                style={{
+                    borderColor: "1px solid #ccc",
+                    boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.15)",
+                    background: "white",
+                }}>
                 <Column
                     width={10}
                     render={(_, record) => (

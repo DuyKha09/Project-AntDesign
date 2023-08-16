@@ -4,13 +4,9 @@ import {
     DashOutlined,
     UserOutlined,
     MenuOutlined,
-    UnorderedListOutlined,
-    PhoneOutlined,
-    BankOutlined,
-    CarryOutOutlined,
-    CompassOutlined,
-    GlobalOutlined,
-    DollarOutlined,
+    BarsOutlined,
+    NumberOutlined,
+    ScheduleOutlined,
 } from '@ant-design/icons';
 import Filter from './Filter';
 import Brightness1Icon from '@mui/icons-material/Brightness1';
@@ -19,24 +15,21 @@ import PageLayout from '../../components/PageLayout';
 const { Column } = Table;
 const { Title } = Typography;
 
-const AllOfStaff = () => {
+const ContractStaff = () => {
     const [APIData, setAPIData] = useState([]);
     const [searchText, setSearchText] = useState("");
-    const [filterDepartment, setFilterDepartment] = useState("");
 
     const handleRefresh = () => {
         setSearchText("");
-        setFilterDepartment("");
     };
 
     const filteredData = APIData.filter((record) => {
         return (
-            record.Name.toLowerCase().includes(searchText.toLowerCase()) &&
-            (filterDepartment === "" || record.Department === filterDepartment)
+            record.CreateBy.toLowerCase().includes(searchText)
         );
     });
 
-    const baseURL = 'https://64cef630ffcda80aff519341.mockapi.io/AllofStaff';
+    const baseURL = 'https://64d5fc1b754d3e0f136169e1.mockapi.io/Unify';
 
     const fetchData = async () => {
         try {
@@ -61,7 +54,7 @@ const AllOfStaff = () => {
             headerContent={
                 <>
                     <Title level={3} style={{ color: "#000" }}>
-                        Danh Sách Nhân Viên
+                        Hợp Đồng Nhân Viên
                     </Title>
                 </>
             }
@@ -70,17 +63,16 @@ const AllOfStaff = () => {
                 <Filter
                     searchText={searchText}
                     setSearchText={setSearchText}
-                    filterDepartment={filterDepartment}
-                    setFilterDepartment={setFilterDepartment}
                     handleRefresh={handleRefresh}
                 />
             </div>
 
-            <Table dataSource={filteredData} scroll={{ x: 'max-content' }} style={{
-                borderColor: "1px solid #ccc",
-                boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.15)",
-                background: "white"
-            }}>
+            <Table dataSource={filteredData} scroll={{ x: 'max-content' }}
+                style={{
+                    borderColor: "1px solid #ccc",
+                    boxShadow: "0 -2px 8px rgba(0, 0, 0, 0.15)",
+                    background: "white",
+                }}>
                 <Column
                     render={(_, record) => (
                         <Space >
@@ -89,87 +81,62 @@ const AllOfStaff = () => {
                     )}
                 />
                 <Column
-                    dataIndex="Role"
-                    key="Role"
-                    render={(role) => {
-                        const color = role === "Manage" ? "blue" : "gray";
-                        const iconStyle = {
-                            color: color,
-                            backgroundColor: color === "blue" ? "lightblue" : "lightgray",
-                            borderRadius: "50%",
-                            padding: "5px",
-                        };
-                        return (
-                            <UserOutlined style={iconStyle} />
-                        );
-                    }}
-                />
-                <Column
                     title="ID"
                     dataIndex="id"
                     key="id"
+                    render={(id, _, index) => index + 1}
                 />
                 <Column
                     title={
                         <Space>
-                            <MenuOutlined /> Tên Nhân Viên
+                            <UserOutlined /> Tạo Bởi
                         </Space>
                     }
-                    dataIndex="Name"
-                    key="Name"
+                    dataIndex="CreateBy"
+                    key="CreateBy"
                     ellipsis={{ showTitle: false }}
                     width={200}
-                    render={(name) => (
+                    render={(CreateBy) => (
                         <Space>
                             <Avatar style={{ backgroundColor: 'purple' }}>
-                                {name.charAt(0)}
+                                {CreateBy.charAt(0)}
                             </Avatar>
-                            {name}
+                            {CreateBy}
                         </Space>
                     )}
                 />
                 <Column
                     title={
                         <Space>
-                            <UnorderedListOutlined /> Phòng Ban
+                            <BarsOutlined /> Loại Hợp Đồng
                         </Space>
                     }
-                    dataIndex="Department"
-                    key="Department"
+                    dataIndex="Type"
+                    key="Type"
                     ellipsis={{ showTitle: false }}
                     width={200}
-                    render={(department) => (
+                    render={(Type) => (
                         <Space>
-                            {department === 'Sales' && <Brightness1Icon style={{ color: "orange", fontSize: "10px" }} />}
-                            {department === 'Chăm Sóc Khách Hàng' && <Brightness1Icon style={{ color: "blue", fontSize: "10px" }} />}
-                            <span>{department}</span>
+                            {Type === 'Hợp đồng xác định hạn' && <Brightness1Icon style={{ color: "orange", fontSize: "10px" }} />}
+                            <span>{Type}</span>
                         </Space>
                     )}
                 />
                 <Column
                     title={
                         <Space>
-                            <PhoneOutlined /> Số Điện Thoại
+                            <BarsOutlined /> Trạng Thái
                         </Space>
                     }
-                    dataIndex="Phone"
-                    key="Phone"
+                    dataIndex="Status"
+                    key="Status"
                     ellipsis={{ showTitle: false }}
                     width={200}
-                />
-                <Column
-                    title={
-                        <Space>
-                            <UnorderedListOutlined /> Giới Tính
-                        </Space>
-                    }
-                    dataIndex="Sex"
-                    key="Sex"
-                    render={(sex) => {
-                        const color = sex === 'Nữ' ? 'red' : 'blue';
+                    render={(status) => {
+                        const color = status === 'Hiệu lực' ? 'purple' : 'blue';
                         return (
                             <Tag color={color}>
-                                {sex}
+                                {status}
                             </Tag>
                         );
                     }}
@@ -177,66 +144,121 @@ const AllOfStaff = () => {
                 <Column
                     title={
                         <Space>
-                            <MenuOutlined /> Email
+                            <BarsOutlined /> Loại Lương
                         </Space>
                     }
-                    dataIndex="Email"
-                    key="Email"
+                    dataIndex="SalaryType"
+                    key="SalaryType"
+                    render={(type) => {
+                        const color = type === 'Gross To Next' ? 'blue' : 'red';
+                        return (
+                            <Tag color={color}>
+                                {type}
+                            </Tag>
+                        );
+                    }}
+                />
+                <Column
+                    title={
+                        <Space>
+                            <NumberOutlined /> Người Phụ Thuộc
+                        </Space>
+                    }
+                    dataIndex="Human"
+                    key="Human"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
                 <Column
                     title={
                         <Space>
-                            <BankOutlined /> Ngân Hàng
+                            <ScheduleOutlined /> Ngày Bắt Đầu
                         </Space>
                     }
-                    dataIndex="Bank"
-                    key="Bank"
+                    dataIndex="StartDate"
+                    key="StartDate"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
                 <Column
                     title={
                         <Space>
-                            <CarryOutOutlined /> Ngày Sinh
+                            <ScheduleOutlined /> Ngày Kết Thúc
                         </Space>
                     }
-                    dataIndex="Date"
-                    key="Date"
+                    dataIndex="EndDate"
+                    key="EndDate"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
                 <Column
                     title={
                         <Space>
-                            <CompassOutlined /> Địa Chỉ
+                            <NumberOutlined /> Lương Thỏa Thuận
                         </Space>
                     }
-                    dataIndex="Address"
-                    key="Address"
+                    dataIndex="WageAgreement"
+                    key="WageAgreement"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
                 <Column
                     title={
                         <Space>
-                            <GlobalOutlined /> Quốc Gia
+                            <NumberOutlined /> Lương Đóng Thuế
                         </Space>
                     }
-                    dataIndex="Nation"
-                    key="Nation"
+                    dataIndex="TaxableSalary"
+                    key="TaxableSalary"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
                 <Column
                     title={
                         <Space>
-                            <DollarOutlined /> TK Ngân Hàng
+                            <NumberOutlined /> Tổng Phụ Cấp
                         </Space>
                     }
-                    dataIndex="BankAccount"
-                    key="BankAccount"
+                    dataIndex="SumAllowance"
+                    key="SumAllowance"
+                    ellipsis={{ showTitle: false }}
+                    width={200}
+                />
+                <Column
+                    title={
+                        <Space>
+                            <MenuOutlined /> Ghi Chú
+                        </Space>
+                    }
+                    dataIndex="Note"
+                    key="Note"
+                    ellipsis={{ showTitle: false }}
+                    width={200}
+                    render={(Note) => (
+                        <Space style={{ opacity: 0.5, fontStyle: 'italic' }}>
+                            {Note}
+                        </Space>
+                    )}
+                />
+                <Column
+                    title={
+                        <Space>
+                            <ScheduleOutlined /> Thời Gian Tạo
+                        </Space>
+                    }
+                    dataIndex="CreateTime"
+                    key="CreateTime"
+                    ellipsis={{ showTitle: false }}
+                    width={200}
+                />
+                <Column
+                    title={
+                        <Space>
+                            <ScheduleOutlined /> Thời Gian Thay Đổi
+                        </Space>
+                    }
+                    dataIndex="ChangeTime"
+                    key="ChangeTime"
                     ellipsis={{ showTitle: false }}
                     width={200}
                 />
@@ -245,4 +267,4 @@ const AllOfStaff = () => {
     );
 };
 
-export default AllOfStaff;
+export default ContractStaff;
